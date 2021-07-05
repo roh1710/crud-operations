@@ -184,17 +184,35 @@ if(count($_POST)!=0)
                     <label for="address">Address</label>
                 <input type="text" class="form-control" name="address" value="<?php echo $res['youraddress'];?>" >
                 </div>
-                <div class="form-group">
+              
+                 <div class="form-group">
           <label for="email">Country</label>
-          <select name="country" id="country" class="form-control" onchange="FetchState(this.value)"  >
-           </select>
+          <select name="country" id="country" class="form-control" onchange="FetchState(this.value)"  required>
+          
+     
+          <option value="<?php echo $res1['yourcountry']?>">Select Country</option>
+          <?php
+        
+        include_once 'conn.php';
+        $query1 = "SELECT * FROM country Order by country_name";
+        $result=mysqli_query($conn,$query1);
+      
+           if ($result->num_rows > 0 ) {
+              while ($row = $result->fetch_assoc()) {
+                
+                echo '<option value='.$row['id'].'>'.$row['country_name'].'</option>';
+               }
+            }
+          ?>
+        
+          </select>
         </div>
        
         <div class="form-group">
           <label for="pwd">State</label>
           <select name="state" id="state" class="form-control" onchange="FetchCity(this.value)"  >
             <option>Select State</option>
-             echo '<option value='.$row['id'].'>'.$row['country_name'].'</option>';
+             echo '<option value='.$row['state_name'].'>'.$row['country_name'].'</option>';
           </select>
         </div>
 
